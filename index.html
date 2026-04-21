@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CFA Table Freshness Tracker</title>
+<link rel="apple-touch-icon" href="data:image/jpeg;base64,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"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="CFA Freshness"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --red: #E4002B;
+    --red-dark: #B8001F;
+    --red-light: #FF1A40;
+    --gold: #F2C75B;
+    --gold-dark: #D4A017;
+    --cream: #FFFDF7;
+    --warm-white: #FFF8EE;
+    --green: #1A7A4A;
+    --green-light: #E8F7EF;
+    --green-badge: #22C55E;
+    --yellow-badge: #F59E0B;
+    --red-badge: #EF4444;
+    --card-border: #F0E8D8;
+    --text-dark: #1C1917;
+    --text-mid: #57534E;
+    --text-light: #A8A29E;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    margin: 0;
+  }
+  h1,h2,h3,.display { font-family: 'Playfair Display', serif; }
+
+  /* Header */
+  .app-header {
+    background: linear-gradient(135deg, var(--red) 0%, #C0001F 100%);
+    color: white;
+    padding: 0;
+    box-shadow: 0 4px 24px rgba(228,0,43,0.35);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .logo-area { display: flex; align-items: center; gap: 12px; }
+  .logo-icon {
+    width: 44px; height: 44px;
+    background: white;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .logo-text h1 {
+    font-size: 15px; font-weight: 800; letter-spacing: -0.3px; margin: 0;
+    line-height: 1.1;
+  }
+  .logo-text p { font-size: 11px; opacity: 0.8; margin: 0; font-weight: 400; }
+  .header-time { font-size: 12px; opacity: 0.85; text-align: right; line-height: 1.4; }
+
+  /* Stats bar */
+  .stats-bar {
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--card-border);
+    padding: 16px 20px;
+  }
+  .stats-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; gap: 12px; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+  }
+  .stats-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  .stat-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: white;
+    border-radius: 40px;
+    padding: 8px 14px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--card-border);
+    font-size: 13px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .stat-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .stat-dot.green { background: var(--green-badge); }
+  .stat-dot.yellow { background: var(--yellow-badge); }
+  .stat-dot.red { background: var(--red-badge); }
+  .stat-num { color: var(--text-mid); font-weight: 400; font-size: 12px; }
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600; cursor: pointer; border: none; border-radius: 10px;
+    transition: all 0.18s ease; font-size: 13px; padding: 9px 16px;
+    white-space: nowrap;
+  }
+  .btn:active { transform: scale(0.96); }
+  .btn-red { background: var(--red); color: white; box-shadow: 0 2px 8px rgba(228,0,43,0.3); }
+  .btn-red:hover { background: var(--red-dark); }
+  .btn-outline { background: white; color: var(--text-dark); border: 1.5px solid var(--card-border); }
+  .btn-outline:hover { border-color: var(--red); color: var(--red); }
+  .btn-outline.active { background: var(--red); color: white; border-color: var(--red); }
+  .btn-green { background: var(--green); color: white; }
+  .btn-green:hover { background: #155C38; }
+  .btn-ghost { background: transparent; color: var(--text-mid); }
+  .btn-ghost:hover { background: rgba(0,0,0,0.05); }
+  .btn-gold { background: var(--gold); color: #7C4A00; }
+  .btn-gold:hover { background: var(--gold-dark); color: white; }
+  .btn-lg { padding: 14px 22px; font-size: 15px; border-radius: 14px; }
+  .btn-sm { padding: 7px 12px; font-size: 12px; border-radius: 8px; }
+
+  /* Main */
+  .main { max-width: 1200px; margin: 0 auto; padding: 16px 16px 100px; }
+
+  /* Grid */
+  .table-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 900px) { .table-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 640px) { .table-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* Table List */
+  .table-list { display: flex; flex-direction: column; gap: 8px; }
+  .table-list .table-card { flex-direction: row; align-items: center; min-height: 64px; padding: 10px 16px; }
+  .table-list .table-num { font-size: 22px; min-width: 44px; }
+  .table-list .flower-badge { font-size: 11px; padding: 3px 8px; }
+  .table-list .card-indicators { flex-direction: row; gap: 10px; flex: 1; justify-content: flex-end; }
+  .table-list .indicator-row { flex-direction: column; align-items: center; gap: 2px; }
+
+  /* Table Card */
+  .table-card {
+    background: white;
+    border-radius: 16px;
+    border: 1.5px solid var(--card-border);
+    padding: 14px;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+    display: flex; flex-direction: column; gap: 10px;
+    position: relative; overflow: hidden;
+  }
+  .table-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--card-border);
+    transition: background 0.2s;
+  }
+  .table-card.status-fresh::before { background: var(--green-badge); }
+  .table-card.status-okay::before { background: var(--yellow-badge); }
+  .table-card.status-replace::before { background: var(--red-badge); }
+  .table-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: #DDD0C0; }
+  .table-card:active { transform: scale(0.98); }
+
+  .table-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 800; color: var(--text-dark); line-height: 1;
+  }
+  .table-num span { font-size: 12px; font-weight: 400; color: var(--text-light); font-family: 'DM Sans',sans-serif; }
+
+  .flower-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 10px; border-radius: 20px;
+    font-size: 12px; font-weight: 600; width: fit-content;
+  }
+  .flower-badge.fresh { background: var(--green-light); color: var(--green); }
+  .flower-badge.okay { background: #FFF8E6; color: #92550A; }
+  .flower-badge.replace { background: #FEE2E2; color: #991B1B; }
+
+  .flower-time { font-size: 10px; color: var(--text-light); margin-top: 2px; }
+
+  .card-indicators { display: flex; flex-direction: column; gap: 6px; }
+  .indicator-row {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 12px; color: var(--text-mid); font-weight: 500;
+  }
+  .indicator-row .icon { font-size: 14px; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45); backdrop-filter: blur(4px);
+    z-index: 200; display: flex; align-items: flex-end; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: white;
+    border-radius: 28px 28px 0 0;
+    width: 100%; max-width: 560px;
+    max-height: 92vh; overflow-y: auto;
+    transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    padding-bottom: 32px;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-handle {
+    width: 40px; height: 4px; background: #E0D8CF;
+    border-radius: 2px; margin: 12px auto 0;
+  }
+  .modal-header {
+    padding: 16px 24px 0;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-title { font-size: 24px; font-weight: 800; }
+  .modal-close {
+    width: 36px; height: 36px; border-radius: 50%; border: none; background: #F5F0E8;
+    cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center;
+    color: var(--text-mid); transition: background 0.15s;
+  }
+  .modal-close:hover { background: #EDE5D8; }
+  .modal-body { padding: 16px 24px 0; display: flex; flex-direction: column; gap: 20px; }
+  .modal-section {
+    background: var(--warm-white); border-radius: 16px; padding: 16px;
+    border: 1px solid var(--card-border);
+  }
+  .modal-section-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--text-light); margin-bottom: 12px;
+  }
+  .flower-btn-group { display: flex; flex-direction: column; gap: 8px; }
+  .flower-btn {
+    width: 100%; padding: 14px 18px; border-radius: 12px; border: 2px solid transparent;
+    cursor: pointer; font-family: 'DM Sans',sans-serif; font-size: 14px; font-weight: 600;
+    text-align: left; display: flex; align-items: center; gap: 10px;
+    transition: all 0.18s ease; background: white;
+  }
+  .flower-btn:hover { transform: translateX(2px); }
+  .flower-btn.selected-fresh { border-color: var(--green-badge); background: var(--green-light); color: var(--green); }
+  .flower-btn.selected-okay { border-color: var(--yellow-badge); background: #FFF8E6; color: #92550A; }
+  .flower-btn.selected-replace { border-color: var(--red-badge); background: #FEE2E2; color: #991B1B; }
+  .flower-btn .btn-icon { font-size: 20px; }
+  .flower-btn .btn-sub { font-size: 11px; font-weight: 400; opacity: 0.7; display: block; }
+
+  /* Toggle */
+  .toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .toggle-label { font-size: 14px; font-weight: 600; }
+  .toggle-sub { font-size: 12px; color: var(--text-light); }
+  .toggle-wrap { position: relative; }
+  .toggle-input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .toggle-track {
+    display: flex; align-items: center;
+    width: 56px; height: 30px; border-radius: 15px;
+    background: #E0D8CF; cursor: pointer;
+    transition: background 0.22s; padding: 3px;
+    border: 2px solid transparent;
+  }
+  .toggle-input:checked + .toggle-track { background: var(--green-badge); }
+  .toggle-thumb {
+    width: 22px; height: 22px; border-radius: 50%; background: white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .toggle-input:checked + .toggle-track .toggle-thumb { transform: translateX(26px); }
+
+  .note-field {
+    width: 100%; border: 1.5px solid var(--card-border); border-radius: 12px;
+    padding: 12px 14px; font-family: 'DM Sans',sans-serif; font-size: 13px;
+    background: white; color: var(--text-dark); resize: none; outline: none;
+    transition: border-color 0.15s;
+  }
+  .note-field:focus { border-color: var(--red); }
+
+  .modal-footer {
+    padding: 16px 24px 0;
+    display: flex; gap: 10px;
+  }
+
+  /* Toast */
+  .toast-wrap {
+    position: fixed; top: 80px; right: 16px; z-index: 400;
+    display: flex; flex-direction: column; gap: 8px;
+    pointer-events: none;
+  }
+  .toast {
+    background: #1C1917; color: white;
+    padding: 12px 18px; border-radius: 14px;
+    font-size: 13px; font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    max-width: 300px;
+    transform: translateX(120%); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: all;
+  }
+  .toast.show { transform: translateX(0); }
+  .toast.toast-success { border-left: 4px solid var(--green-badge); }
+  .toast.toast-warning { border-left: 4px solid var(--yellow-badge); }
+  .toast.toast-info { border-left: 4px solid var(--gold); }
+
+  /* Welcome */
+  .welcome-overlay {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .welcome-card {
+    background: white; border-radius: 24px; padding: 32px;
+    max-width: 400px; width: 100%;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes popIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .welcome-icon { font-size: 52px; margin-bottom: 12px; }
+  .welcome-card h2 { font-size: 22px; margin: 0 0 8px; }
+  .welcome-card p { font-size: 14px; color: var(--text-mid); line-height: 1.6; margin: 0 0 20px; }
+  .welcome-steps { text-align: left; background: var(--warm-white); border-radius: 14px; padding: 16px; margin-bottom: 20px; }
+  .welcome-steps li { font-size: 13px; color: var(--text-mid); margin-bottom: 8px; list-style: none; display: flex; gap: 8px; align-items: flex-start; }
+  .welcome-steps li::before { content: attr(data-n); background: var(--red); color: white; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  /* Footer */
+  .app-footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; border-top: 1px solid var(--card-border);
+    padding: 10px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--text-light);
+    z-index: 90;
+  }
+  .footer-left { display: flex; gap: 12px; align-items: center; }
+  .saved-indicator { display: flex; align-items: center; gap: 5px; }
+  .saved-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-badge); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* Confirm Dialog */
+  .confirm-overlay {
+    position: fixed; inset: 0; z-index: 600;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .confirm-card {
+    background: white; border-radius: 20px; padding: 28px 24px;
+    max-width: 360px; width: 100%; box-shadow: var(--shadow-lg);
+    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .confirm-icon { font-size: 40px; margin-bottom: 12px; }
+  .confirm-card h3 { font-size: 20px; margin: 0 0 8px; }
+  .confirm-card p { font-size: 13px; color: var(--text-mid); margin: 0 0 20px; line-height: 1.5; }
+  .confirm-actions { display: flex; gap: 10px; }
+
+  /* AppSheet export */
+  .appsheet-modal {
+    background: white; border-radius: 24px; padding: 28px;
+    max-width: 480px; width: 100%; box-shadow: var(--shadow-lg);
+    animation: popIn 0.3s ease;
+  }
+  .code-block {
+    background: #1C1917; color: #E8D5B7;
+    border-radius: 10px; padding: 14px; font-family: monospace;
+    font-size: 11px; line-height: 1.7; overflow-x: auto;
+    white-space: pre; margin: 8px 0;
+  }
+
+  /* Manage Tables Modal */
+  .manage-modal {
+    background: white; border-radius: 24px; padding: 0;
+    max-width: 460px; width: 100%; box-shadow: var(--shadow-lg);
+    overflow: hidden; max-height: 80vh; display: flex; flex-direction: column;
+    animation: popIn 0.3s ease;
+  }
+  .manage-header {
+    padding: 20px 24px; background: var(--red); color: white;
+  }
+  .manage-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
+  .table-list-manage { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .table-chip {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--warm-white); border-radius: 20px; border: 1.5px solid var(--card-border);
+    padding: 5px 10px 5px 12px; font-size: 13px; font-weight: 600;
+  }
+  .table-chip-rm {
+    background: none; border: none; color: var(--red); cursor: pointer;
+    font-size: 15px; width: 20px; height: 20px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .table-chip-rm:hover { background: #FEE2E2; }
+  .add-table-row { display: flex; gap: 8px; margin-top: 12px; }
+  .add-table-input {
+    flex: 1; padding: 10px 14px; border: 1.5px solid var(--card-border);
+    border-radius: 10px; font-family: 'DM Sans',sans-serif; font-size: 14px;
+    outline: none;
+  }
+  .add-table-input:focus { border-color: var(--red); }
+
+  /* section divider */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--text-light); padding: 4px 0 8px;
+  }
+
+  /* Hidden utility */
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- Welcome Modal -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-card">
+    <div class="welcome-icon">💐</div>
+    <h2>Welcome, Hostess!</h2>
+    <p>Track flowers, conversation cards & holders for every table in seconds. Your progress saves automatically.</p>
+    <ul class="welcome-steps">
+      <li data-n="1">Tap any table card to update its status quickly.</li>
+      <li data-n="2">Use the summary bar to spot what needs attention.</li>
+      <li data-n="3">Start New Shift to reset everything for the next team.</li>
+    </ul>
+    <button class="btn btn-red btn-lg" style="width:100%" onclick="closeWelcome()">Let's Go! 🚀</button>
+  </div>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="confirm-overlay hidden" id="confirmOverlay">
+  <div class="confirm-card" id="confirmCard">
+    <div class="confirm-icon">⚠️</div>
+    <h3 id="confirmTitle">Start New Shift?</h3>
+    <p id="confirmMsg">This will reset all table statuses. This cannot be undone.</p>
+    <div class="confirm-actions">
+      <button class="btn btn-outline" style="flex:1" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-red" style="flex:1" id="confirmOkBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- AppSheet Submit Modal -->
+<div class="confirm-overlay hidden" id="appsheetOverlay">
+  <div class="appsheet-modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h3 style="margin:0;font-size:20px">📊 Submit Check Report</h3>
+      <button class="modal-close" onclick="document.getElementById('appsheetOverlay').classList.add('hidden')">✕</button>
+    </div>
+    <div id="webhookSetup">
+      <p style="font-size:13px;color:var(--text-mid);line-height:1.6;margin:0 0 12px">Paste your Google Apps Script Web App URL to connect:</p>
+      <input id="webhookInput" class="add-table-input" style="width:100%;margin-bottom:10px" placeholder="https://script.google.com/macros/s/.../exec"/>
+      <button class="btn btn-green" style="width:100%" onclick="saveWebhook()">Save URL</button>
+    </div>
+    <div id="submitSection" class="hidden">
+      <div style="margin-bottom:14px">
+        <label style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-light);display:block;margin-bottom:6px">Your Name</label>
+        <input id="checkerName" class="add-table-input" style="width:100%" placeholder="e.g. Sarah" value=""/>
+      </div>
+      <div style="background:var(--warm-white);border-radius:12px;padding:12px;margin-bottom:14px;font-size:13px;color:var(--text-mid);line-height:1.8">
+        <div>📅 <strong>Date:</strong> <span id="previewDate"></span></div>
+        <div>🥀 <strong>Needs flowers:</strong> <span id="previewFlowers"></span> tables</div>
+        <div>🃏 <strong>Missing cards:</strong> <span id="previewCards"></span> tables</div>
+        <div>🔍 <strong>Cards needing replacement:</strong> <span id="previewCondition"></span> tables</div>
+        <div>✨ <strong>Dirty holders:</strong> <span id="previewHolders"></span> tables</div>
+      </div>
+      <button class="btn btn-red btn-lg" style="width:100%;margin-bottom:8px" onclick="submitToAppSheet()">🚀 Submit to Google Sheets</button>
+      <button class="btn btn-ghost btn-sm" style="width:100%" onclick="resetWebhook()">Change URL</button>
+    </div>
+    <div id="submitStatus" style="margin-top:12px;font-size:13px;text-align:center;display:none"></div>
+  </div>
+</div>
+
+<!-- Manage Tables Modal -->
+<div class="confirm-overlay hidden" id="manageOverlay">
+  <div class="manage-modal">
+    <div class="manage-header">
+      <h3 style="margin:0;font-size:20px">Manage Tables</h3>
+      <p style="margin:4px 0 0;font-size:13px;opacity:0.8">Add or remove tables from the tracker.</p>
+    </div>
+    <div class="manage-body">
+      <div class="section-label">Current Tables (<span id="tableCountLabel">0</span>)</div>
+      <div class="table-list-manage" id="manageTableList"></div>
+      <div class="add-table-row">
+        <input class="add-table-input" type="number" id="addTableInput" placeholder="Enter table number..." min="1" max="999"/>
+        <button class="btn btn-red" onclick="addTableFromManage()">+ Add</button>
+      </div>
+    </div>
+    <div style="padding:16px 24px;border-top:1px solid var(--card-border);display:flex;gap:10px">
+      <button class="btn btn-outline" style="flex:1" onclick="document.getElementById('manageOverlay').classList.add('hidden')">Cancel</button>
+      <button class="btn btn-green" style="flex:1" onclick="saveManageTables()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Table Detail Modal -->
+<div class="modal-overlay" id="tableModal">
+  <div class="modal" id="modalContent">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div>
+        <div style="font-size:12px;color:var(--text-light);font-weight:500;text-transform:uppercase;letter-spacing:0.5px">Update Status</div>
+        <div class="modal-title" id="modalTableTitle">Table 1</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Flowers -->
+      <div class="modal-section">
+        <div class="modal-section-title">🌸 Flower Freshness</div>
+        <div class="flower-btn-group">
+          <button class="flower-btn" id="btnFresh" onclick="setFlower('fresh');autoSave()">
+            <span class="btn-icon">💐</span>
+            <span>
+              Mark as Fresh <em class="btn-sub">Just replaced — looks beautiful</em>
+            </span>
+          </button>
+          <button class="flower-btn" id="btnOkay" onclick="setFlower('okay');autoSave()">
+            <span class="btn-icon">🌼</span>
+            <span>
+              Looks Okay <em class="btn-sub">Still presentable, keep an eye on it</em>
+            </span>
+          </button>
+          <button class="flower-btn" id="btnReplace" onclick="setFlower('replace');autoSave()">
+            <span class="btn-icon">🥀</span>
+            <span>
+              Needs Replacement <em class="btn-sub">Wilting or looks bad</em>
+            </span>
+          </button>
+        </div>
+        <div style="font-size:11px;color:var(--text-light);margin-top:8px" id="modalLastChecked"></div>
+      </div>
+      <!-- Conversation Cards -->
+      <div class="modal-section">
+        <div class="modal-section-title">🃏 Conversation Cards</div>
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Cards are present on table</div>
+            <div class="toggle-sub">Toggle off if cards are missing</div>
+          </div>
+          <label class="toggle-wrap">
+            <input type="checkbox" class="toggle-input" id="cardsToggle" onchange="updateModalCards();autoSave()"/>
+            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          </label>
+        </div>
+      </div>
+      <!-- Card Condition -->
+      <div class="modal-section">
+        <div class="modal-section-title">🔍 Card Condition</div>
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Cards are in good condition ✅</div>
+            <div class="toggle-sub">Toggle off if cards are bent, worn, or damaged</div>
+          </div>
+          <label class="toggle-wrap">
+            <input type="checkbox" class="toggle-input" id="conditionToggle" onchange="updateModalCondition();autoSave()"/>
+            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          </label>
+        </div>
+      </div>
+      <!-- Holders -->
+      <div class="modal-section">
+        <div class="modal-section-title">✨ Card Holder Cleanliness</div>
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Holder is clean</div>
+            <div class="toggle-sub">Toggle off if holder needs cleaning</div>
+          </div>
+          <label class="toggle-wrap">
+            <input type="checkbox" class="toggle-input" id="holderToggle" onchange="updateModalHolder();autoSave()"/>
+            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- APP HEADER -->
+<header class="app-header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-icon">💐</div>
+      <div class="logo-text">
+        <h1>Table Freshness Tracker</h1>
+        <p>Chick-fil-A Cherry Creek</p>
+      </div>
+    </div>
+    <div class="header-time" id="headerTime"></div>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stats-group">
+      <div class="stat-pill">
+        <div class="stat-dot green"></div>
+        <span>Flowers <strong id="statFresh">0</strong>/<span id="statTotal1">28</span> fresh</span>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-dot yellow"></div>
+        <span>Cards <strong id="statCards">0</strong>/<span id="statTotal2">28</span> present</span>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-dot yellow"></div>
+        <span>Condition <strong id="statCondition">0</strong>/<span id="statTotal4">28</span> good</span>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-dot red"></div>
+        <span>Holders <strong id="statHolders">0</strong>/<span id="statTotal3">28</span> clean</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline btn-sm" id="viewGridBtn" onclick="setView('grid')" title="Grid View">⊞</button>
+      <button class="btn btn-outline btn-sm" id="viewListBtn" onclick="setView('list')" title="List View">☰</button>
+      <button class="btn btn-outline btn-sm" onclick="openManage()" title="Add/Remove Tables">⚙ Tables</button>
+      <button class="btn btn-gold btn-sm" onclick="openAppSheet()" title="Submit Check Report">📋 Submit</button>
+      <button class="btn btn-red btn-sm" onclick="confirmNewShift()">🔄 New Shift</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+  <div id="tableContainer" class="table-grid"></div>
+</main>
+
+<!-- FOOTER -->
+<footer class="app-footer">
+  <div class="footer-left">
+    <span id="footerDate"></span>
+    <div class="saved-indicator">
+      <div class="saved-dot"></div>
+      <span id="savedText">Saved just now</span>
+    </div>
+  </div>
+  <span style="font-size:10px;opacity:0.6">Chick-fil-A Cherry Creek · Peak Vista Hospitality</span>
+</footer>
+
+<script>
+// ─────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────
+const DEFAULT_TABLE_COUNT = 28;
+let tables = [];
+let currentView = 'grid';
+let editingTableId = null;
+let tempFlower = null;
+let tempCards = null;
+let tempCondition = null;
+let tempHolder = null;
+let manageTableNums = [];
+let confirmCallback = null;
+
+// ─────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────
+function init() {
+  const saved = localStorage.getItem('cfa_tables_v2');
+  if (saved) {
+    tables = JSON.parse(saved);
+  } else {
+    tables = buildDefaultTables(DEFAULT_TABLE_COUNT);
+    save();
+  }
+
+  const welcomed = localStorage.getItem('cfa_welcomed');
+  if (!welcomed) {
+    document.getElementById('welcomeOverlay').style.display = 'flex';
+  } else {
+    document.getElementById('welcomeOverlay').style.display = 'none';
+  }
+
+  const savedView = localStorage.getItem('cfa_view') || 'grid';
+  setView(savedView, true);
+  render();
+  updateStats();
+  startClock();
+}
+
+function buildDefaultTables(count) {
+  const nums = [];
+  for (let i = 1; i <= count; i++) nums.push(i);
+  return nums.map(n => makeTable(n));
+}
+
+function makeTable(num) {
+  return {
+    id: num,
+    num: num,
+    flower: 'fresh',
+    flowerTime: Date.now(),
+    cards: true,
+    cardCondition: true,
+    holder: true,
+    note: ''
+  };
+}
+
+function save() {
+  localStorage.setItem('cfa_tables_v2', JSON.stringify(tables));
+  const el = document.getElementById('savedText');
+  if (el) el.textContent = 'Saved just now';
+}
+
+// ─────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────
+function render() {
+  const container = document.getElementById('tableContainer');
+  container.innerHTML = '';
+  container.className = currentView === 'grid' ? 'table-grid' : 'table-list';
+
+  const sorted = [...tables].sort((a,b) => a.num - b.num);
+  sorted.forEach(t => {
+    const card = document.createElement('div');
+    const statusClass = t.flower === 'fresh' ? 'status-fresh' : t.flower === 'okay' ? 'status-okay' : 'status-replace';
+    card.className = `table-card ${statusClass}`;
+    card.onclick = () => openModal(t.id);
+
+    const minutesAgo = Math.floor((Date.now() - t.flowerTime) / 60000);
+    const timeStr = minutesAgo < 1 ? 'just now' : minutesAgo < 60 ? `${minutesAgo}m ago` : `${Math.floor(minutesAgo/60)}h ${minutesAgo%60}m ago`;
+
+    const flowerLabel = t.flower === 'fresh' ? '💐 Fresh' : t.flower === 'okay' ? '🌼 Okay' : '🥀 Replace';
+    const flowerClass = t.flower === 'fresh' ? 'fresh' : t.flower === 'okay' ? 'okay' : 'replace';
+
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="table-num">
+          ${t.num}
+          <span style="display:block">Table</span>
+        </div>
+        ${!t.cards || t.cardCondition === false || !t.holder ? `<div style="font-size:18px" title="Needs attention">⚠️</div>` : ''}
+      </div>
+      <div>
+        <div class="flower-badge ${flowerClass}">${flowerLabel}</div>
+        <div class="flower-time">Last checked: ${timeStr}</div>
+      </div>
+      <div class="card-indicators">
+        <div class="indicator-row">
+          <span class="icon">${t.cards ? '✅' : '❌'}</span>
+          <span>${t.cards ? 'Cards present' : 'Cards missing'}</span>
+        </div>
+        <div class="indicator-row">
+          <span class="icon">${t.cardCondition !== false ? '✅' : '❌'}</span>
+          <span>${t.cardCondition !== false ? 'Cards in good condition' : 'Cards bent'}</span>
+        </div>
+        <div class="indicator-row">
+          <span class="icon">${t.holder ? '✅' : '❌'}</span>
+          <span>${t.holder ? 'Holder clean' : 'Holder dirty'}</span>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  updateStats();
+}
+
+function updateStats() {
+  const total = tables.length;
+  const fresh = tables.filter(t => t.flower === 'fresh').length;
+  const cards = tables.filter(t => t.cards).length;
+  const condition = tables.filter(t => t.cardCondition).length;
+  const holders = tables.filter(t => t.holder).length;
+
+  document.getElementById('statFresh').textContent = fresh;
+  document.getElementById('statCards').textContent = cards;
+  document.getElementById('statCondition').textContent = condition;
+  document.getElementById('statHolders').textContent = holders;
+  ['statTotal1','statTotal2','statTotal3','statTotal4'].forEach(id => {
+    document.getElementById(id).textContent = total;
+  });
+}
+
+// ─────────────────────────────────────────
+// MODAL
+// ─────────────────────────────────────────
+function openModal(tableId) {
+  const t = tables.find(x => x.id === tableId);
+  if (!t) return;
+  editingTableId = tableId;
+  tempFlower = t.flower;
+  tempCards = t.cards;
+  tempCondition = t.cardCondition;
+  tempHolder = t.holder;
+
+  document.getElementById('modalTableTitle').textContent = `Table ${t.num}`;
+  document.getElementById('cardsToggle').checked = t.cards;
+  document.getElementById('conditionToggle').checked = t.cardCondition !== false;
+  document.getElementById('holderToggle').checked = t.holder;
+
+
+  const minutesAgo = Math.floor((Date.now() - t.flowerTime) / 60000);
+  const timeStr = minutesAgo < 1 ? 'just now' : minutesAgo < 60 ? `${minutesAgo}m ago` : `${Math.floor(minutesAgo/60)}h ${minutesAgo%60}m ago`;
+  document.getElementById('modalLastChecked').textContent = `Last updated: ${timeStr}`;
+
+  updateFlowerButtons(tempFlower);
+  document.getElementById('tableModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('tableModal').classList.remove('open');
+  document.body.style.overflow = '';
+  editingTableId = null;
+}
+
+function setFlower(status) {
+  tempFlower = status;
+  updateFlowerButtons(status);
+}
+
+function updateFlowerButtons(status) {
+  document.getElementById('btnFresh').className = 'flower-btn' + (status === 'fresh' ? ' selected-fresh' : '');
+  document.getElementById('btnOkay').className = 'flower-btn' + (status === 'okay' ? ' selected-okay' : '');
+  document.getElementById('btnReplace').className = 'flower-btn' + (status === 'replace' ? ' selected-replace' : '');
+}
+
+function updateModalCards() {
+  tempCards = document.getElementById('cardsToggle').checked;
+}
+function updateModalCondition() {
+  tempCondition = document.getElementById('conditionToggle').checked;
+}
+function updateModalHolder() {
+  tempHolder = document.getElementById('holderToggle').checked;
+}
+
+function autoSave() {
+  if (editingTableId === null) return;
+  const t = tables.find(x => x.id === editingTableId);
+  if (!t) return;
+  const prevFlower = t.flower;
+  t.flower = tempFlower;
+  if (prevFlower !== tempFlower) t.flowerTime = Date.now();
+  t.cards = tempCards !== null ? tempCards : document.getElementById('cardsToggle').checked;
+  t.cardCondition = tempCondition !== null ? tempCondition : document.getElementById('conditionToggle').checked;
+  t.holder = tempHolder !== null ? tempHolder : document.getElementById('holderToggle').checked;
+  save();
+  render();
+}
+
+// ─────────────────────────────────────────
+// VIEW
+// ─────────────────────────────────────────
+function setView(view, silent) {
+  currentView = view;
+  localStorage.setItem('cfa_view', view);
+  const gBtn = document.getElementById('viewGridBtn');
+  const lBtn = document.getElementById('viewListBtn');
+  if (view === 'grid') {
+    gBtn.classList.add('active');
+    lBtn.classList.remove('active');
+  } else {
+    lBtn.classList.add('active');
+    gBtn.classList.remove('active');
+  }
+  if (!silent) render();
+}
+
+// ─────────────────────────────────────────
+// NEW SHIFT
+// ─────────────────────────────────────────
+function confirmNewShift() {
+  showConfirm(
+    'Start New Shift?',
+    'This will reset all flower statuses to Fresh and mark all cards & holders as present. This cannot be undone.',
+    '🔄',
+    () => {
+      tables = tables.map(t => ({ ...t, flower: 'fresh', flowerTime: Date.now(), cards: true, holder: true, note: '' }));
+      save();
+      render();
+      showToast('New shift started! Everything reset to fresh. 💐', 'info');
+    }
+  );
+}
+
+// ─────────────────────────────────────────
+// MANAGE TABLES
+// ─────────────────────────────────────────
+function openManage() {
+  manageTableNums = tables.map(t => t.num).sort((a,b) => a-b);
+  renderManageList();
+  document.getElementById('manageOverlay').classList.remove('hidden');
+}
+
+function renderManageList() {
+  const container = document.getElementById('manageTableList');
+  document.getElementById('tableCountLabel').textContent = manageTableNums.length;
+  container.innerHTML = manageTableNums.map(n => `
+    <div class="table-chip">
+      <span>Table ${n}</span>
+      <button class="table-chip-rm" onclick="removeTableFromManage(${n})" title="Remove table ${n}">✕</button>
+    </div>
+  `).join('');
+}
+
+function removeTableFromManage(num) {
+  if (manageTableNums.length <= 1) { showToast('Must have at least 1 table!', 'warning'); return; }
+  manageTableNums = manageTableNums.filter(n => n !== num);
+  renderManageList();
+}
+
+function addTableFromManage() {
+  const input = document.getElementById('addTableInput');
+  const num = parseInt(input.value);
+  if (!num || num < 1 || num > 999) { showToast('Enter a valid table number (1–999)', 'warning'); return; }
+  if (manageTableNums.includes(num)) { showToast(`Table ${num} already exists!`, 'warning'); return; }
+  manageTableNums.push(num);
+  manageTableNums.sort((a,b) => a-b);
+  input.value = '';
+  renderManageList();
+}
+
+function saveManageTables() {
+  const existing = {};
+  tables.forEach(t => existing[t.num] = t);
+
+  tables = manageTableNums.map(n => {
+    if (existing[n]) return existing[n];
+    return makeTable(n);
+  });
+
+  save();
+  render();
+  document.getElementById('manageOverlay').classList.add('hidden');
+  showToast(`Tables updated — ${tables.length} total. ✅`, 'success');
+}
+
+// ─────────────────────────────────────────
+// APPSHEET SUBMIT
+// ─────────────────────────────────────────
+function openAppSheet() {
+  const url = localStorage.getItem('cfa_webhook') || '';
+  if (url) showSubmitSection(url);
+  else showWebhookSetup();
+  document.getElementById('appsheetOverlay').classList.remove('hidden');
+}
+
+function showWebhookSetup() {
+  document.getElementById('webhookSetup').classList.remove('hidden');
+  document.getElementById('submitSection').classList.add('hidden');
+  document.getElementById('submitStatus').style.display = 'none';
+  const saved = localStorage.getItem('cfa_webhook') || '';
+  document.getElementById('webhookInput').value = saved;
+}
+
+function showSubmitSection(url) {
+  document.getElementById('webhookSetup').classList.add('hidden');
+  document.getElementById('submitSection').classList.remove('hidden');
+  document.getElementById('submitStatus').style.display = 'none';
+  const savedName = localStorage.getItem('cfa_checker_name') || '';
+  document.getElementById('checkerName').value = savedName;
+  const needsFlowers = tables.filter(t => t.flower === 'replace').length;
+  const missingCards = tables.filter(t => !t.cards).length;
+  const bentCards = tables.filter(t => t.cardCondition === false).length;
+  const dirtyHolders = tables.filter(t => !t.holder).length;
+  document.getElementById('previewDate').textContent = new Date().toLocaleDateString('en-US', {weekday:'short',month:'short',day:'numeric',year:'numeric'});
+  document.getElementById('previewFlowers').textContent = needsFlowers;
+  document.getElementById('previewCards').textContent = missingCards;
+  document.getElementById('previewCondition').textContent = bentCards;
+  document.getElementById('previewHolders').textContent = dirtyHolders;
+}
+
+function saveWebhook() {
+  const url = document.getElementById('webhookInput').value.trim();
+  if (!url.startsWith('http')) { showToast('Enter a valid URL', 'warning'); return; }
+  localStorage.setItem('cfa_webhook', url);
+  showSubmitSection(url);
+  showToast('URL saved! ✅', 'success');
+}
+
+function resetWebhook() { showWebhookSetup(); }
+
+async function submitToAppSheet() {
+  const url = localStorage.getItem('cfa_webhook');
+  if (!url) { showToast('No URL configured', 'warning'); return; }
+  const name = document.getElementById('checkerName').value.trim();
+  if (!name) { showToast('Please enter your name first', 'warning'); document.getElementById('checkerName').focus(); return; }
+  localStorage.setItem('cfa_checker_name', name);
+  const statusEl = document.getElementById('submitStatus');
+  statusEl.style.display = 'block';
+  statusEl.style.color = 'var(--text-mid)';
+  statusEl.textContent = '⏳ Submitting...';
+  const params = new URLSearchParams({
+    date: new Date().toLocaleDateString('en-US', {weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    person: name,
+    needsFlowers: tables.filter(t => t.flower === 'replace').length,
+    missingCards: tables.filter(t => !t.cards).length,
+    bentCards: tables.filter(t => t.cardCondition === false).length,
+    dirtyHolders: tables.filter(t => !t.holder).length
+  });
+  // Use image ping — bypasses Safari's no-cors redirect block on Apps Script URLs
+  return new Promise((resolve) => {
+    const img = new Image();
+    const fullUrl = url + '?' + params.toString();
+    img.onload = img.onerror = function() {
+      statusEl.textContent = '✅ Submitted! Check your Sheet to confirm.';
+      statusEl.style.color = 'var(--green)';
+      showToast(`Report submitted by ${name} 🚀`, 'success');
+      resolve();
+    };
+    img.src = fullUrl;
+    // Fallback timeout in case neither fires
+    setTimeout(() => {
+      statusEl.textContent = '✅ Submitted! Check your Sheet to confirm.';
+      statusEl.style.color = 'var(--green)';
+      showToast(`Report submitted by ${name} 🚀`, 'success');
+      resolve();
+    }, 5000);
+  });
+}
+
+// ─────────────────────────────────────────
+// CONFIRM DIALOG
+// ─────────────────────────────────────────
+function showConfirm(title, msg, icon, callback) {
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMsg').textContent = msg;
+  document.querySelector('.confirm-icon').textContent = icon;
+  confirmCallback = callback;
+  document.getElementById('confirmOkBtn').onclick = () => { closeConfirm(); if(confirmCallback) confirmCallback(); };
+  document.getElementById('confirmOverlay').classList.remove('hidden');
+}
+function closeConfirm() {
+  document.getElementById('confirmOverlay').classList.add('hidden');
+}
+
+// ─────────────────────────────────────────
+// WELCOME
+// ─────────────────────────────────────────
+function closeWelcome() {
+  localStorage.setItem('cfa_welcomed', '1');
+  document.getElementById('welcomeOverlay').style.display = 'none';
+}
+
+// ─────────────────────────────────────────
+// TOAST
+// ─────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  const wrap = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = `toast toast-${type}`;
+  t.textContent = msg;
+  wrap.appendChild(t);
+  requestAnimationFrame(() => { requestAnimationFrame(() => { t.classList.add('show'); }); });
+  setTimeout(() => {
+    t.classList.remove('show');
+    setTimeout(() => t.remove(), 400);
+  }, 3000);
+}
+
+// ─────────────────────────────────────────
+// CLOCK
+// ─────────────────────────────────────────
+function startClock() {
+  function tick() {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    const dateStr = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    const el = document.getElementById('headerTime');
+    if (el) el.innerHTML = `<strong>${timeStr}</strong><br>${dateStr}`;
+    const fe = document.getElementById('footerDate');
+    if (fe) fe.textContent = `${dateStr} · ${timeStr}`;
+  }
+  tick();
+  setInterval(tick, 1000);
+  // Re-render every 5 min to update "X minutes ago" text
+  setInterval(() => render(), 60000);
+}
+
+// Close modal on overlay click
+document.getElementById('tableModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ─────────────────────────────────────────
+// KICK OFF
+// ─────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
