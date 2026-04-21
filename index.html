@@ -643,6 +643,7 @@
 // ─────────────────────────────────────────
 // STATE
 // ─────────────────────────────────────────
+const DEFAULT_TABLE_COUNT = 28;
 const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxUtjuX-NSRIBQ-kumQ92HP3oQbNIo0wvQW5qxH-ecASFIR30fiJkmgOrDYEpbL6SmBVA/exec';
 let tables = [];
 let currentView = 'grid';
@@ -658,12 +659,16 @@ let confirmCallback = null;
 // INIT
 // ─────────────────────────────────────────
 function init() {
-  try {
+ try {
     const saved = localStorage.getItem('cfa_tables_v2');
     if (saved) {
-      tables = JSON.parse(saved);
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        tables = parsed;
+      }
     }
   } catch(e) {
+    console.warn('localStorage unavailable:', e);
     tables = [];
   }
   if (!tables || tables.length === 0) {
@@ -705,7 +710,7 @@ function makeTable(num) {
 }
 
 function save() {
-  localStorage.setItem('cfa_tables_v2', JSON.stringify(tables));
+  try { localStorage.setItem('cfa_tables_v2', JSON.stringify(tables)); } catch(e) { console.warn('Save failed:', e); }
   const el = document.getElementById('savedText');
   if (el) el.textContent = 'Saved just now';
 }
