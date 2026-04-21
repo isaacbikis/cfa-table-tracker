@@ -658,10 +658,15 @@ let confirmCallback = null;
 // INIT
 // ─────────────────────────────────────────
 function init() {
-  const saved = localStorage.getItem('cfa_tables_v2');
-  if (saved) {
-    tables = JSON.parse(saved);
-  } else {
+  try {
+    const saved = localStorage.getItem('cfa_tables_v2');
+    if (saved) {
+      tables = JSON.parse(saved);
+    }
+  } catch(e) {
+    tables = [];
+  }
+  if (!tables || tables.length === 0) {
     tables = buildDefaultTables(DEFAULT_TABLE_COUNT);
     save();
   }
